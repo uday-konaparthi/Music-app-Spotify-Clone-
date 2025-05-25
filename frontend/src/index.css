@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display:none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+/* Add this to your global CSS (e.g., styles.css) */
+.scrollbar-opacity-50::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* black with 50% opacity */
+}
+
+.scrollbar-opacity-50::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-opacity-50 {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(95, 93, 93, 0.5) transparent; /* Firefox */
+}
+/* Hide scrollbar by default */
+.scrollbar-hover-hide::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Show scrollbar on hover with 50% opacity */
+.scrollbar-hover-hide:hover::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-hover-hide:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* 50% opacity black */
+  border-radius: 9999px;
+}
+
+/* Firefox scrollbar */
+.scrollbar-hover-hide {
+  scrollbar-width: none; /* hide scrollbar */
+}
+
+.scrollbar-hover-hide:hover {
+  scrollbar-width: thin; /* show thin scrollbar */
+  scrollbar-color: rgba(95, 93, 93, 0.5) transparent;
+}
