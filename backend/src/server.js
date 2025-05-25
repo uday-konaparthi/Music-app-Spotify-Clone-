@@ -26,7 +26,7 @@ app.use(fileUpload({
 
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend origin
+  origin: ["http://localhost:5173", "https://music-app-spotify-clone.vercel.app"], // frontend origin
   credentials: true
 }));
 
