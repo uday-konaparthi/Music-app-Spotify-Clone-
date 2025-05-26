@@ -15,22 +15,34 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 app.use(fileUpload({
   useTempFiles: true,
   tempFileDir: '/tmp/',
 }));
 
+// CORS setup
+const allowedOrigin = "https://music-app-spotify-clone.vercel.app";
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://music-app-spotify-clone.vercel.app"], // frontend origin
-  credentials: true
+  origin: allowedOrigin,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// Connect MongoDB
+// Preflight handler (for OPTIONS requests)
+app.options("*", cors({
+  origin: allowedOrigin,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.log("MongoDB connection error:", err));
@@ -41,10 +53,12 @@ app.use("/admin", adminRoutes);
 app.use("/user/albums", albumRoutes);
 app.use('/user/songs', songRoutes);
 
+// Root route
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 
+// Start server
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

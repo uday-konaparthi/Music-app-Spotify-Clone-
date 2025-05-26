@@ -50,6 +50,7 @@ const Loginpage = () => {
       console.log(document.cookie);
       dispatch(login(data));
       toast.success("User Logged in Successfully");
+      console.log("data :", data)
       navigate("/");
     } catch (error) {
       console.error("Login error:", error.message);
