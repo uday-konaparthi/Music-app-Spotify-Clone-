@@ -49,6 +49,8 @@ const Loginpage = () => {
       localStorage.setItem("token", data.token);
       dispatch(login(data));
       toast.success("User Logged in Successfully");
+      console.log("data :", data)
+      console.log("token :", token)
       navigate("/");
     } catch (error) {
       console.error("Login error:", error.message);
