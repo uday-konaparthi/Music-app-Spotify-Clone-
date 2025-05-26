@@ -257,7 +257,7 @@ const SongsPage = () => {
                     src="assets/frontend-assets/playlist-svgrepo-com.svg"
                     tabIndex={0}
                     role="button"
-                    className="hidden group-hover:flex sm:size-6 size-4 invert rounded-full"
+                    className={`flex sm:hidden sm:group-hover:flex sm:size-6 size-4 invert rounded-full`}
                   />
 
                   <ul
