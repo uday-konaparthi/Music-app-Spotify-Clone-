@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,6 +14,7 @@ import MusicBar from "./components/musicBar";
 import PlayListPage from "./pages/playlistpage";
 import SearchPage from "./pages/searchPage";
 import ProfilePage from "./pages/profilepage";
+import Notfound from "./pages/notFound";
 
 import { login } from "./redux/authSlice";
 import { fetchAllAlbums, fetchAllSongs } from "./utils/getCollection";
@@ -30,7 +31,9 @@ const App = () => {
 
   const isLoggedIn = user !== null;
 
-  const hideFullLayout = ["/login", "/register"].includes(location.pathname);
+  // Routes that shouldn't show layout
+  const hideFullLayoutRoutes = ["/login", "/register", "/404"];
+  const hideFullLayout = hideFullLayoutRoutes.includes(location.pathname);
   const hideSidebar = ["/profile"].includes(location.pathname);
 
   useEffect(() => {
@@ -45,10 +48,7 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      // Do nothing, allow unauthenticated users to see login/register page
-      return;
-    }
+    if (location.pathname === "/login" || location.pathname === "/register") return;
     if (!user && token) {
       handleAutoLogin();
     } else if (!user && !token) {
@@ -92,6 +92,8 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Loginpage />} />
           <Route path="/register" element={<Registerpage />} />
+          <Route path="/404" element={<Notfound />} />
+          <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       ) : (
         <>
@@ -119,6 +121,7 @@ const App = () => {
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="*" element={<Navigate to="/404" />} />
               </Routes>
             </div>
           </div>
