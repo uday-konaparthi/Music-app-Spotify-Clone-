@@ -49,11 +49,16 @@ const Navbar = () => {
       </div>
 
       <div
-        className="flex group sm:hidden tooltip tooltip-right"
-        data-tip="Open Library"
+        className="flex group sm:hidden"
       >
         <div className="group-hover:hidden">
-          <Menu className="size-5" />
+          <Menu
+            className="size-5"
+            onClick={() => {
+              dispatch(toggle());
+              navigate("/");
+            }}
+          />
         </div>
         <img
           className="size-5 hidden group-hover:block"

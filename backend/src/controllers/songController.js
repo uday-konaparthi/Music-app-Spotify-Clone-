@@ -66,11 +66,22 @@ export const handlefetchLikedSongs = async (req, res) => {
 
 export const handleCreatePlaylist = async (req, res) => {
   try {
-    const { playlistName } = req.body;
+    const { playlistName, song } = req.body;
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    user.playlists.push({ name: playlistName, songs: [] });
+    let songsArray = [];
+    if (song) {
+      const songExists = await Song.findById(song);
+      if (!songExists) {
+        return res.status(404).json({ message: "Provided song not found" });
+      }
+      songsArray.push(song);
+    }
+
+
+    //user.playlists.push({ name: playlistName, songs: [] });
+    user.playlists.push({ name: playlistName, songs: songsArray });
     await user.save();
 
     res.status(200).json({

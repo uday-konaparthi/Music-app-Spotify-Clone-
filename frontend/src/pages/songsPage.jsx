@@ -95,13 +95,13 @@ const SongsPage = () => {
     }
   };
 
-  const handleCreatePlaylist = async () => {
+  const handleCreatePlaylist = async (song) => {
     try {
       const res = await fetch(`${serverURL}/user/songs/playlist/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ playlistName: "playlist" }),
+        body: JSON.stringify({ playlistName: "playlist", song: song }),
       });
 
       const data = await res.json();
@@ -181,7 +181,7 @@ const SongsPage = () => {
           {songList.length > 0 && (
             <div
               onClick={() => handleClick(songList[0], 0)}
-              className="cursor-pointer mt-4 md:mt-0 mx-auto md:mx-0 absolute bottom-1 right-5 opacity-0 transition-all duration-500 ease-in-out group-hover:bottom-5 group-hover:opacity-100 lg:opacity-100 lg:static"
+              className="cursor-pointer mt-4 md:mt-0 mx-auto md:mx-0 absolute bottom-1 right-5 opacity-100 transition-all duration-500 ease-in-out group-hover:bottom-5 group-hover:opacity-100 lg:opacity-100 lg:static"
             >
               <img
                 src="./assets/frontend-assets/play.png"
@@ -264,7 +264,7 @@ const SongsPage = () => {
                     tabIndex={0}
                     className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                   >
-                    <li onClick={() => handleCreatePlaylist()}>
+                    <li onClick={() => handleCreatePlaylist(song)}>
                       <a>
                         Create New Playlist <ChevronRight className="size-4" />{" "}
                       </a>

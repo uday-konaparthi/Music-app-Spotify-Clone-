@@ -47,6 +47,7 @@ const Loginpage = () => {
       }
 
       localStorage.setItem("token", data.token);
+      console.log(document.cookie);
       dispatch(login(data));
       toast.success("User Logged in Successfully");
       navigate("/");
